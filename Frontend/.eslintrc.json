@@ -32,7 +32,8 @@
 		"react-hooks/exhaustive-deps": "warn",
 		"max-len": [2, { "code": 120, "tabWidth": 4, "ignoreUrls": true }],
 		"object-curly-spacing": ["error", "always"],
-		"no-unused-vars": "warn"
+		"no-unused-vars": "warn",
+		"react/no-unknown-property": ["error", { "ignore": ["css"] }]
 		// "linebreak-style": ['error', require('os').EOL === '\r\n' ? 'windows' : 'unix']
 	}
 }
