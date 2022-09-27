@@ -42,7 +42,7 @@ const Item = React.memo(styled.li<{ isClicked: boolean }>`
     align-items: center;
     cursor: pointer;
     &:hover {
-        background-color: rgb(30, 92, 249);
+        background-color: rgb(80, 122, 228);
     }
     background: ${props => props.isClicked ? "rgb(30, 92, 249)" : ""};
 `);
