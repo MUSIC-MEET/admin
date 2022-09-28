@@ -16,11 +16,10 @@ function Nav(props: BaseProps) {
 
     const navitems: NaviItemType[] = useMemo(() => [
         { name: "메인", path: "/", index: 1 },
-        { name: "유저 관리", path: "/user", index: 2 },
-        { name: "음악 추가", path: "/music/add", index: 3 },
-        { name: "음악 관리", path: "/music/manage", index: 4 },
+        { name: "유저 관리", path: "/users/manage", index: 2 },
+        { name: "음악 추가", path: "/musics/add", index: 3 },
+        { name: "음악 관리", path: "/musics/manage", index: 4 },
     ], []);
-
 
     return (
         <nav

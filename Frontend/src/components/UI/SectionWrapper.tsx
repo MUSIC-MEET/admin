@@ -1,23 +1,23 @@
-import { css } from "@emotion/react";
+import { css, Interpolation, Theme } from "@emotion/react";
 import React from "react";
 
 interface SectionWrapperProps {
     children: React.ReactNode;
+    style?: Interpolation<Theme>;
 }
 
 function SectionWrapper(props: SectionWrapperProps) {
     return (
-        <section css={style}>
+        <section css={[style, props.style]}>
             {props.children}
         </section>
     );
 }
 
 const style = css`
-    width: 95%;
+    width: 100%;
     padding: 1rem;
     background-color: white;
-    margin: 0.5rem;
     border-radius: 10px;
 `;
 

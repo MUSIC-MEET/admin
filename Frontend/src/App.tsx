@@ -5,17 +5,19 @@ import { Route, Routes } from "react-router-dom";
 
 import Music from "components/pages/Music/Index";
 import Main from "components/pages/Main/Index";
+import User from "components/pages/User/Index";
 
 function App() {
     return (
         <div className="App" css={style}>
             <Menu className="menu" />
-            <article className="content">
+            <div className="content">
                 <Routes>
                     <Route path="/" element={<Main />} />
-                    <Route path="/music/*" element={<Music />} />
+                    <Route path="/users/*" element={<User />} />
+                    <Route path="/musics/*" element={<Music />} />
                 </Routes>
-            </article>
+            </div>
         </div>
     );
 }
@@ -35,8 +37,9 @@ const style = css`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: center;
+        align-items: flex-start;
         width: 100%;
+        
     }
 `;
 
