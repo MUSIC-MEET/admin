@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import Logo from "components/common/Logo";
 import React, { useEffect } from "react";
 import Nav from "./Nav/Nav";
 
@@ -18,7 +19,7 @@ function Menu(props: MenuProps) {
             className={`${props.className}`}
             css={style}
         >
-
+            <Logo />
             <Nav />
         </aside>
     );
@@ -28,5 +29,10 @@ function Menu(props: MenuProps) {
 const style = css`
     background-color: rgb(47, 46, 47);
     color: #ebebeb;
+    & > .logo {
+        width: 12.5rem;
+        height: 6rem;
+        margin-left: 2rem;
+    }
 `;
 export default React.memo(Menu);

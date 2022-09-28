@@ -18,6 +18,7 @@ function Nav(props: BaseProps) {
         { name: "메인", path: "/", index: 1 },
         { name: "유저 관리", path: "/user", index: 2 },
         { name: "음악 추가", path: "/music/add", index: 3 },
+        { name: "음악 관리", path: "/music/manage", index: 4 },
     ], []);
 
 

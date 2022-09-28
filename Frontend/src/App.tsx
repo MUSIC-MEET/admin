@@ -1,9 +1,10 @@
 import { css } from "@emotion/react";
-import Title from "components/common/Title";
 import Menu from "components/Menu/Menu";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+
 import Music from "components/pages/Music/Index";
+import Main from "components/pages/Main/Index";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Menu className="menu" />
             <article className="content">
                 <Routes>
+                    <Route path="/" element={<Main />} />
                     <Route path="/music/*" element={<Music />} />
                 </Routes>
             </article>
