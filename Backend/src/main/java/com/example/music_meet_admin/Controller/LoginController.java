@@ -1,6 +1,8 @@
 package com.example.music_meet_admin.Controller;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.example.music_meet_admin.Been.BeenConfig;
+import com.example.music_meet_admin.Service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,17 +15,18 @@ import java.util.Map;
 
 @Controller
 @CrossOrigin("*")
-public class adminController {
+public class LoginController {
 
-    @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
-    public ResponseEntity<Object> addMusic(@RequestBody Map<String, String> requestMap)
+    @Autowired
+    private LoginService loginService;
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<Object> login(@RequestBody Map<String, String> requestMap)
     {
         final String id = requestMap.get("id");
         final String pw = requestMap.get("pw");
 
-
-
-
+        loginService.login(id, pw);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
