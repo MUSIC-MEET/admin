@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import Title from "components/common/Title";
+import ArticleWrapper from "components/UI/ArticleWrapper";
 import SectionWrapper from "components/UI/SectionWrapper";
 import React from "react";
 
@@ -7,13 +8,15 @@ function Index() {
     return (
         <React.Fragment>
             <Title>{"메인"}</Title>
-            <SectionWrapper style={style}>
-                <h2>{"2022/09/27 23:00:01"} </h2>
-                <p>{"총 회원 : 1299 명"}</p>
-                <p>{"총 게시글 : 55112 개"}</p>
-                <p>{"커버 업로드 : 2233 개"}</p>
-                <p>{"신고내역 : 22 개"}</p>
-            </SectionWrapper>
+            <ArticleWrapper>
+                <SectionWrapper style={style}>
+                    <h2>{"2022/09/27 23:00:01"} </h2>
+                    <p>{"총 회원 : 1299 명"}</p>
+                    <p>{"총 게시글 : 55112 개"}</p>
+                    <p>{"커버 업로드 : 2233 개"}</p>
+                    <p>{"신고내역 : 22 개"}</p>
+                </SectionWrapper>
+            </ArticleWrapper>
         </React.Fragment>
     );
 }

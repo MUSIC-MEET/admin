@@ -1,13 +1,14 @@
-import { css } from "@emotion/react";
+import { css, Interpolation, Theme } from "@emotion/react";
 import React from "react";
 
 interface ArticleWrapperProps {
     children: React.ReactNode;
+    style?: Interpolation<Theme>;
 }
 
 function ArticleWrapper(props: ArticleWrapperProps) {
     return (
-        <article css={defaultStyle}>
+        <article css={[defaultStyle, props?.style]}>
             {props.children}
         </article >
     );

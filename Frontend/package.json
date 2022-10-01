@@ -42,7 +42,8 @@
     "eslint-react": "^0.0.4",
     "install": "^0.13.0",
     "msw": "^0.44.2",
-    "npm": "^8.15.1"
+    "npm": "^8.15.1",
+    "react-query": "^3.39.2"
   },
   "scripts": {
     "start": "react-app-rewired start",

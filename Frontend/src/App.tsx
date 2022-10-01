@@ -6,19 +6,34 @@ import { Route, Routes } from "react-router-dom";
 import Music from "components/pages/Music/Index";
 import Main from "components/pages/Main/Index";
 import User from "components/pages/User/Index";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            suspense: true,
+            useErrorBoundary: true,
+            retry: 0,
+            refetchOnWindowFocus: false,
+
+        },
+    },
+});
 function App() {
     return (
-        <div className="App" css={style}>
-            <Menu className="menu" />
-            <div className="content">
-                <Routes>
-                    <Route path="/" element={<Main />} />
-                    <Route path="/users/*" element={<User />} />
-                    <Route path="/musics/*" element={<Music />} />
-                </Routes>
+        <QueryClientProvider client={queryClient}>
+            <div className="App" css={style}>
+                <Menu className="menu" />
+                <div className="content">
+                    <Routes>
+                        <Route path="/" element={<Main />} />
+                        <Route path="/users/*" element={<User />} />
+                        <Route path="/musics/*" element={<Music />} />
+                    </Routes>
+                </div>
             </div>
-        </div>
+        </QueryClientProvider>
+
     );
 }
 
@@ -37,7 +52,7 @@ const style = css`
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         width: 100%;
         
     }
