@@ -1,15 +1,15 @@
 import Title from "components/common/Title";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import SectionWrapper from "components/UI/SectionWrapper";
-import Input from "components/common/Input";
 import { css } from "@emotion/react";
 import ArticleWrapper from "components/UI/ArticleWrapper";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import InputForm from "./InputForm";
 import User from "./UserType";
 import Result from "./Result";
 import { useQuery } from "react-query";
 import fetchUserList from "utils/Users/fetchUserList";
+import _ from "lodash";
+
 function UserManage() {
     const [keyword, setKeyword] = useState<string>("");
 
@@ -18,16 +18,14 @@ function UserManage() {
         suspense: false
     });
 
-    // const data: User[] = [
-    //     { id: 1, userId: "abx1234", nickname: "김철수", email: "this@kakao.com", state: 1 },
-    //     { id: 1, userId: "abx1234", nickname: "김철수", email: "this@kakao.com", state: 1 },
-    //     { id: 1, userId: "abx1234", nickname: "김철수", email: "this@kakao.com", state: 1 }
-    // ];
+    const debounceOnChange = useMemo(() => _.debounce(() => {
+        refetch();
+    }, 500), []);
 
-
-    const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setKeyword(() => e.target.value);
-    }, []);
+    const onChangeHandler = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+        await setKeyword(() => e.target.value);
+        debounceOnChange();
+    }, [debounceOnChange]);
 
     const onKeywordSearchHandler = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
