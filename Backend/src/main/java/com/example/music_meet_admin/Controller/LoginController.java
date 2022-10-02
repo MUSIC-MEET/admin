@@ -1,6 +1,6 @@
 package com.example.music_meet_admin.Controller;
 
-import com.example.music_meet_admin.Been.BeenConfig;
+
 import com.example.music_meet_admin.Service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +26,21 @@ public class LoginController {
         final String id = requestMap.get("id");
         final String pw = requestMap.get("pw");
 
-        loginService.login(id, pw);
+        //
+
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/admin/test2", method = RequestMethod.POST)
+    public ResponseEntity<Object> test2(@RequestBody Map<String, String> requestMap)
+    {
+        final String id = requestMap.get("id");
+        final String pw = requestMap.get("pw");
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
 }

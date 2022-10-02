@@ -11,8 +11,7 @@ import javax.persistence.*;
 
 
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class) // 시큐리티 끔
-@EnableJpaAuditing
-@Repository
+//@EnableJpaAuditing
 public class MusicMeetAdminApplication {
 
 	@PersistenceUnit
