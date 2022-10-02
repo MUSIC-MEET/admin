@@ -10,5 +10,4 @@ public class EncryptionService
 {
     public BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-
 }

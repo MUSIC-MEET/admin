@@ -28,9 +28,10 @@ public class LoginController {
 
         //
 
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    
     @RequestMapping(value = "/admin/test2", method = RequestMethod.POST)
     public ResponseEntity<Object> test2(@RequestBody Map<String, String> requestMap)
     {
@@ -39,6 +40,7 @@ public class LoginController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 
 }

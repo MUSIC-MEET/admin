@@ -14,6 +14,8 @@ import javax.persistence.*;
 //@EnableJpaAuditing
 public class MusicMeetAdminApplication {
 
+	@PersistenceUnit
+	EntityManagerFactory emf;
 	public static void main(String[] args) {
 
 		SpringApplication.run(MusicMeetAdminApplication.class, args);
