@@ -3,22 +3,16 @@ package com.example.music_meet_admin.Service;
 
 import com.example.music_meet_admin.Repository.Admin.Admin;
 import com.example.music_meet_admin.Repository.Admin.AdminRepository;
-import com.example.music_meet_admin.Repository.User.User;
-import com.example.music_meet_admin.Repository.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 @Service
 public class AdminService
 {
     @Autowired
-    AdminRepository adminRepository;
-
+    private AdminRepository adminRepository;
 
     public void checkAdmin(String id, String pw){
         //Optional<Admin> responserAdmin = adminRepository.findById(2);

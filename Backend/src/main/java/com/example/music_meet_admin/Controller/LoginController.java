@@ -1,11 +1,7 @@
 package com.example.music_meet_admin.Controller;
 
-<<<<<<< HEAD:Backend/src/main/java/com/example/music_meet_admin/Controller/adminController.java
-import com.example.music_meet_admin.Service.AdminService;
-=======
-import com.example.music_meet_admin.Been.BeenConfig;
+
 import com.example.music_meet_admin.Service.LoginService;
->>>>>>> 1f4ea2e9bc532e6f65207a781adbfb1dd5370977:Backend/src/main/java/com/example/music_meet_admin/Controller/LoginController.java
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +17,7 @@ import java.util.Map;
 @CrossOrigin("*")
 public class LoginController {
 
+    @Autowired
     private LoginService loginService;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -29,7 +26,7 @@ public class LoginController {
         final String id = requestMap.get("id");
         final String pw = requestMap.get("pw");
 
-        loginService.login(id, pw);
+        //
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
