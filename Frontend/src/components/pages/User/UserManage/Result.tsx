@@ -1,9 +1,16 @@
 import { css } from "@emotion/react";
+
 import React from "react";
 import User from "./User";
 import UserType from "./UserType";
+import ActiveType from "./ActiveType";
+import ChangeStateFnType from "./ChangeStateFnType";
 
-function Result({ result }: { result?: UserType[] }) {
+interface ResultProps {
+    result?: UserType[];
+}
+
+function Result({ result, onChangeState }: ResultProps & ChangeStateFnType) {
     return (
         <table css={style} className="total">
             <caption>
@@ -26,6 +33,7 @@ function Result({ result }: { result?: UserType[] }) {
                         <User
                             key={user.id}
                             {...user}
+                            onChangeState={onChangeState}
                         />
                     ))}
                 </React.Fragment>

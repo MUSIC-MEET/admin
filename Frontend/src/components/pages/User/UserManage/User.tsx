@@ -3,25 +3,35 @@ import UserType from "./UserType";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import UserStateButton from "./UserStateButton";
 import styled from "@emotion/styled";
+import ActiveType from "./ActiveType";
+import ChangeStateFnType from "./ChangeStateFnType";
 
-const ActionList = () => {
-    return (
-        <ActionListWrapper className="actionList">
-            <li>
-                <UserStateButton state={0} />
-            </li>
-            <li>
-                <UserStateButton state={1} />
-            </li>
-            <li>
-                <UserStateButton state={2} />
-            </li>
-            <li>
-                <UserStateButton state={3} />
-            </li>
-        </ActionListWrapper>
-    );
-};
+const ActionList =
+    (props: ChangeStateFnType & { userId: string } & { onHide: () => void }) => {
+        const changeStateHandler = (state: ActiveType) => {
+            props.onChangeState({
+                userId: props.userId,
+                state: state
+            });
+            props.onHide();
+        };
+        return (
+            <ActionListWrapper className="actionList">
+                <li onClick={() => changeStateHandler(0)}>
+                    <UserStateButton state={0} />
+                </li>
+                <li onClick={() => changeStateHandler(1)}>
+                    <UserStateButton state={1} />
+                </li>
+                <li onClick={() => changeStateHandler(2)}>
+                    <UserStateButton state={2} />
+                </li>
+                <li onClick={() => changeStateHandler(3)}>
+                    <UserStateButton state={3} />
+                </li>
+            </ActionListWrapper>
+        );
+    };
 
 const ActionListWrapper = styled.ul`
     position: absolute;
@@ -41,12 +51,20 @@ const ActionListWrapper = styled.ul`
     }
 `;
 
-function User(props: UserType) {
+
+
+
+function User(props: UserType & ChangeStateFnType) {
     const [actionShown, setActionShown] = useState<boolean>(false);
 
     const actionShwonHandler = () => {
-        setActionShown(() => !actionShown);
+        setActionShown((prev) => !prev);
     };
+
+    const actionHideHandler = () => {
+        setActionShown(() => false);
+    };
+
 
     return (
         <tr className="item">
@@ -60,7 +78,14 @@ function User(props: UserType) {
                 <MoreHorizIcon
                     onClick={actionShwonHandler}
                 />
-                {actionShown && <ActionList />}
+                {actionShown
+                    &&
+                    <ActionList
+                        userId={props.userId}
+                        onChangeState={props.onChangeState}
+                        onHide={actionHideHandler}
+                    />
+                }
             </div>
         </tr>
     );
