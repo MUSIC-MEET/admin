@@ -1,15 +1,22 @@
 import Title from "components/common/Title";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import SectionWrapper from "components/UI/SectionWrapper";
-import Input from "components/common/Input";
 import { css } from "@emotion/react";
 import ArticleWrapper from "components/UI/ArticleWrapper";
-import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import InputForm from "./InputForm";
 import User from "./UserType";
 import Result from "./Result";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
+
+import _ from "lodash";
+import ActiveType from "./ActiveType";
+
 import fetchUserList from "utils/Users/fetchUserList";
+import SetActiveUser from "utils/Users/SetActvieUser";
+import SetUncertifiedUser from "utils/Users/SetUncertifiedUser";
+import SetDestoryUser from "utils/Users/SetDestoryUser";
+import SetBanUser from "utils/Users/SetBanUser";
+
 function UserManage() {
     const [keyword, setKeyword] = useState<string>("");
 
@@ -18,21 +25,53 @@ function UserManage() {
         suspense: false
     });
 
-    // const data: User[] = [
-    //     { id: 1, userId: "abx1234", nickname: "김철수", email: "this@kakao.com", state: 1 },
-    //     { id: 1, userId: "abx1234", nickname: "김철수", email: "this@kakao.com", state: 1 },
-    //     { id: 1, userId: "abx1234", nickname: "김철수", email: "this@kakao.com", state: 1 }
-    // ];
+    const { mutate: setActvieMutate } = useMutation(["setActive"],
+        SetActiveUser,
+        {
+
+        }
+    );
+
+    const { mutate: setSetUncertifiedMutate } = useMutation(["setUncertified"],
+        SetUncertifiedUser
+    );
+
+    const { mutate: setDestroyMutate } = useMutation(["setDestroy"],
+        SetDestoryUser
+    );
+
+    const { mutate: setBanMutate } = useMutation(["setBan"],
+        SetBanUser
+    );
 
 
-    const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        setKeyword(() => e.target.value);
-    }, []);
+
+    const debounceOnChange = useMemo(() => _.debounce(() => {
+        refetch();
+    }, 500), []);
+
+    const onChangeHandler = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+        await setKeyword(() => e.target.value);
+        debounceOnChange();
+    }, [debounceOnChange]);
 
     const onKeywordSearchHandler = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         refetch();
     }, [refetch]);
+
+    const onChangeUserState = useCallback(({ userId, state }: { userId: string; state: ActiveType }) => {
+        if (state === 0) {
+            setActvieMutate({ userId });
+        } else if (state === 1) {
+            setDestroyMutate({ userId });
+        } else if (state === 2) {
+            setBanMutate({ userId });
+        } else if (state === 3) {
+            setSetUncertifiedMutate({ userId });
+        }
+    }, [setActvieMutate, setBanMutate, setDestroyMutate, setSetUncertifiedMutate]);
+
     return (
         <React.Fragment>
             <Title>{"유저 관리"}</Title>
@@ -45,6 +84,7 @@ function UserManage() {
                 <SectionWrapper>
                     <Result
                         result={data}
+                        onChangeState={onChangeUserState}
                     />
                 </SectionWrapper>
             </ArticleWrapper>
