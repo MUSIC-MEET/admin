@@ -8,7 +8,7 @@ const SetDestoryUser =
     }: { userId: string}): Promise<AxiosResponse> => {
         const axios = customAxios();
         return axios({
-            method: "PUT",
+            method: "DELETE",
             url: `/users/${userId}`,
         });
         
