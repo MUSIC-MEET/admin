@@ -6,7 +6,7 @@ import ArticleWrapper from "components/UI/ArticleWrapper";
 import InputForm from "./InputForm";
 import User from "./UserType";
 import Result from "./Result";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import _ from "lodash";
 import ActiveType from "./ActiveType";
@@ -19,7 +19,7 @@ import SetBanUser from "utils/Users/SetBanUser";
 
 function UserManage() {
     const [keyword, setKeyword] = useState<string>("");
-
+    const queryClient = useQueryClient();
     const { data, refetch } = useQuery<User[]>(["fecthUserList"], () => fetchUserList({ keyword }), {
         useErrorBoundary: false,
         suspense: false
@@ -28,20 +28,37 @@ function UserManage() {
     const { mutate: setActvieMutate } = useMutation(["setActive"],
         SetActiveUser,
         {
-
+            onSuccess: () => {
+                queryClient.invalidateQueries("fecthUserList");
+            }
         }
     );
 
     const { mutate: setSetUncertifiedMutate } = useMutation(["setUncertified"],
-        SetUncertifiedUser
+        SetUncertifiedUser,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries("fecthUserList");
+            }
+        }
     );
 
     const { mutate: setDestroyMutate } = useMutation(["setDestroy"],
-        SetDestoryUser
+        SetDestoryUser,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries("fecthUserList");
+            }
+        }
     );
 
     const { mutate: setBanMutate } = useMutation(["setBan"],
-        SetBanUser
+        SetBanUser,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries("fecthUserList");
+            }
+        }
     );
 
 
