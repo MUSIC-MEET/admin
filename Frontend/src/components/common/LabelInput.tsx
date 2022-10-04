@@ -8,6 +8,7 @@ interface LabelInputProps {
     value?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     labelText: string;
+    name?: string;
 }
 
 
@@ -21,6 +22,7 @@ function LabelInput(props: LabelInputProps & BaseProps) {
                 type={props.type}
                 placeholder={props.placeholder}
                 value={props.value}
+                name={props.name}
                 onChange={props.onChange}
             />
         </label>

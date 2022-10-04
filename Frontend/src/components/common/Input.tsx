@@ -6,6 +6,7 @@ interface InputProps {
     type?: string;
     placeholder?: string;
     value?: string;
+    name?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -17,6 +18,7 @@ function Input(props: InputProps & BaseProps) {
             type={props.type}
             placeholder={props.placeholder}
             value={props.value}
+            name={props.name}
             onChange={props.onChange}
         />
     );

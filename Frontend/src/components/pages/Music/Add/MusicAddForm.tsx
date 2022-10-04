@@ -1,7 +1,8 @@
 import { css } from "@emotion/react";
 import GreenButton from "components/common/GreenButton";
 import SectionWrapper from "components/UI/SectionWrapper";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import MusicTextInfoType from "../MusicTextInfoType";
 import AlbumImgUploadForm from "./AlbumImgUploadForm";
 import AlbumInfo from "./AlbumInfo";
 
@@ -10,17 +11,52 @@ import AlbumInfo from "./AlbumInfo";
 function MusicAddForm() {
 
     const [albumImg, setAlbumImg] = useState<any>("");
-    const [albumName, setAlbumName] = useState<string>("");
-    const [artist, setArtist] = useState<string>("");
-    const [genre, setGenre] = useState<string>("");
-    const [releaseDate, setReleaseDate] = useState<string>("");
+    const [albumMp3File, setAlbumMp3File] = useState<Blob | null>(null);
 
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const [textInfo, setTextInfo] = useState<
+        MusicTextInfoType
+    >({
+        origin_title: "",
+        origin_signer: "",
+        releaseDate: "",
+        lyrics: "",
+        genre: "",
+    });
+
+    const textChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setTextInfo({
+            ...textInfo,
+            [e.target.name]: e.target.value,
+        });
+    }, [textInfo]);
+
+    const lyricsChangeHandler = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTextInfo({
+            ...textInfo,
+            lyrics: e.target.value,
+        });
+    }, [textInfo]);
+
+    const mp3ChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(e.target.files);
+    }, []);
+
+    const genreChangeHandler = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+        setTextInfo({
+            ...textInfo,
+            genre: e.target.value,
+        });
+    }, [textInfo]);
+
+    const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-    };
+        console.log(textInfo);
+        console.log(albumMp3File);
+    }, [albumMp3File, textInfo]);
+
     return (
         <SectionWrapper>
-            <form css={style}>
+            <form css={style} onSubmit={onSubmit}>
                 <div className="top item">
                     <AlbumImgUploadForm
                         albumImg={albumImg}
@@ -28,15 +64,25 @@ function MusicAddForm() {
                     />
                     <AlbumInfo
                         className={"album-info"}
+                        text={textInfo}
+                        onChange={textChangeHandler}
+                        onChangeMp3={mp3ChangeHandler}
+                        onChangeGenre={genreChangeHandler}
                     />
                 </div>
 
                 <div className="middle item">
                     <label
                         htmlFor="music-file"
-                    >가사</label>
+                    >{"가사"}</label>
                     <div className="wrapper">
-                        <textarea id="music-file" cols={50} />
+                        <textarea
+                            id="music-file"
+                            cols={50}
+                            value={textInfo.lyrics}
+                            name={"lyrics"}
+                            onChange={lyricsChangeHandler}
+                        />
                     </div>
                 </div>
 
