@@ -19,6 +19,7 @@ const style = css`
     padding: 1rem;
     background-color: white;
     border-radius: 10px;
+    /* overflow: hidden; */
 `;
 
 export default SectionWrapper;
