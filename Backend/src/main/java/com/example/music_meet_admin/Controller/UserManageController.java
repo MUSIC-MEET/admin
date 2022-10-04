@@ -49,13 +49,14 @@ public class UserManageController {
     }
 
     //
-    // 유저 복구.md
+    // 회원 미인증.md, 회원 정지.md, 회원 활성화.md
     //
-    @RequestMapping(path = "/users", method = RequestMethod.PUT)
-    public ResponseEntity<Object> userStateModify_(@RequestBody Map<String, String> requestMap) {
-        final String id = requestMap.get("id");
+    @RequestMapping(path = "/users/{userId}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> userStateModify_(@PathVariable("userId") final String userId,
+                                                   @RequestBody Map<String, Integer> requestMap) {
+        final int state = requestMap.get("state");
         try {
-            userService.userStateModify(id, 0);
+            userService.userStateModify(userId, state);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -63,13 +64,12 @@ public class UserManageController {
     }
 
     //
-    // 유저 삭제.md
+    // 회원 탈퇴 처리.md
     //
-    @RequestMapping(path = "/users", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> userStateModify(@RequestBody Map<String, String> requestMap){
-        final String id = requestMap.get("id");
+    @RequestMapping(path = "/users/{userId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Object> userStateModify(@PathVariable("userId") final String userId){
         try {
-            userService.userStateModify(id, 2);
+            userService.userStateModify(userId, 1);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

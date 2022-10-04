@@ -51,7 +51,7 @@ public class UserService {
     //
     // 유저 복구, 삭제
     //
-    public void userStateModify(final String id, final int state) throws Exception {
-        userRepository.userStateModify(id, state);
+    public void userStateModify(final String userId, final int state) throws Exception {
+        userRepository.userStateModify(userId, state);
     }
 }

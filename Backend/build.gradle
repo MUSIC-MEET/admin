@@ -35,6 +35,10 @@ dependencies {
 	// https://mvnrepository.com/artifact/commons-codec/commons-codec
 	implementation group: 'commons-codec', name: 'commons-codec', version: '1.10' // 양방향 암호화
 
+	// https://mvnrepository.com/artifact/com.googlecode.soundlibs/mp3spi
+	implementation group: 'com.googlecode.soundlibs', name: 'mp3spi', version: '1.9.5.4'  // MP3SPI (음원 길이 구하는데 사용)
+
+
 }
 
 tasks.named('test') {
