@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.io.File;
+
 
 @Service
 @Getter
@@ -36,5 +38,8 @@ public class BeenConfig
 
     @Value("server.port")
     private String serverPort;
+
+    private String musicImagePath = System.getProperty("user.dir") + File.separator + "musicImageFiles" + File.separator;
+    private String musicMp3FilePath = System.getProperty("user.dir") + File.separator + "musicMp3Files" + File.separator;
 
 }
