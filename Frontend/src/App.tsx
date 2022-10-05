@@ -40,13 +40,13 @@ function App() {
 
 const style = css`
     width: 100vw;
-    height: 100vh;
+    height: 100%;
 
     display: flex;
     flex-direction: row;
     .menu {
         min-width: 16rem;
-        
+    
     }
 
     .content {

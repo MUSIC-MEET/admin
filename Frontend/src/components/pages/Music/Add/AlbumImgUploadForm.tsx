@@ -4,7 +4,8 @@ import Button from "components/common/Button";
 import BaseProps from "components/common/BaseProps";
 
 interface AlbumImgUploadFormProps {
-    albumImg: string;
+    previeImg: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function AlbumImgUploadForm(props: AlbumImgUploadFormProps & BaseProps) {
@@ -15,12 +16,20 @@ function AlbumImgUploadForm(props: AlbumImgUploadFormProps & BaseProps) {
     }, []); return (
         <div css={style} className={`${props.className}`}>
             <figure>
-                <img
-                    src={props.albumImg}
-                    alt=""
-                />
+                {
+                    props.previeImg.length !== 0 &&
+                    <img
+                        src={props.previeImg}
+                        alt=""
+                    />
+                }
             </figure>
-            <input ref={fileRef} type="file" hidden />
+            <input
+                ref={fileRef}
+                type="file"
+                onChange={props.onChange}
+                hidden
+            />
             <Button
                 onClick={uploadBtnOnClickHandler}
                 className="upload-btn"
@@ -36,7 +45,7 @@ const style = css`
     align-items: center;
     justify-content: center;
     width: 100%;
-    & > figure > img {
+    & > figure, & > figure > img {
         width: 20rem;
         min-height: 15rem;
         border: 1px solid black;

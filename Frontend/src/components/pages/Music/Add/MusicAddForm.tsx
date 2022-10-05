@@ -5,19 +5,19 @@ import React, { useCallback, useState } from "react";
 import MusicTextInfoType from "../MusicTextInfoType";
 import AlbumImgUploadForm from "./AlbumImgUploadForm";
 import AlbumInfo from "./AlbumInfo";
+import MusicAddRequestType from "./MusicAddRequestType";
 
 
 
-function MusicAddForm() {
-
-    const [albumImg, setAlbumImg] = useState<any>("");
-    const [albumMp3File, setAlbumMp3File] = useState<Blob | null>(null);
-
+function MusicAddForm(props: { onSend: ({ ...MusicAddRequestType }: MusicAddRequestType) => void }) {
+    const [albumMp3File, setAlbumMp3File] = useState<Blob>(new Blob());
+    const [albumImgFile, setAlbumImgFile] = useState<Blob>(new Blob());
+    const [imgPreview, setImgPreview] = useState<string>("");
     const [textInfo, setTextInfo] = useState<
         MusicTextInfoType
     >({
         origin_title: "",
-        origin_signer: "",
+        origin_singer: "",
         releaseDate: "",
         lyrics: "",
         genre: "",
@@ -38,7 +38,7 @@ function MusicAddForm() {
     }, [textInfo]);
 
     const mp3ChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.files);
+        setAlbumMp3File(e.target.files![0]);
     }, []);
 
     const genreChangeHandler = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -48,19 +48,28 @@ function MusicAddForm() {
         });
     }, [textInfo]);
 
+    const imgFileChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        setAlbumImgFile(() => e.target.files![0]);
+        setImgPreview(() => URL.createObjectURL(e.target.files![0]));
+    }, []);
+
     const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(textInfo);
-        console.log(albumMp3File);
-    }, [albumMp3File, textInfo]);
+        props.onSend({
+            imgFile: albumImgFile,
+            mp3File: albumMp3File,
+            textInfo: textInfo,
+        });
+    }, [albumImgFile, albumMp3File, props, textInfo]);
 
     return (
         <SectionWrapper>
             <form css={style} onSubmit={onSubmit}>
                 <div className="top item">
                     <AlbumImgUploadForm
-                        albumImg={albumImg}
+                        previeImg={imgPreview}
                         className={"album-img-upload-form"}
+                        onChange={imgFileChangeHandler}
                     />
                     <AlbumInfo
                         className={"album-info"}
