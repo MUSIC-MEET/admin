@@ -26,7 +26,7 @@ public class Music {
     private String lyrics;
     @Column(name = "filename")
     private String fileName;
-    private String Length;
+    private int Length;
     private int vote;
     private String genre;
 }

@@ -38,20 +38,28 @@ public class MusicService {
      */
     public void createMusicFile(MultipartFile imageFile, MultipartFile mp3File) throws Exception{
 
+        //System.out.println(beenConfig.getMusicImagePath());
+        //System.out.println(beenConfig.getMusicMp3FilePath());
+
         final String imageName = imageFile.getOriginalFilename().replaceAll(" ", "");
         File newImageFile = new File(beenConfig.getMusicImagePath() + imageName);
         imageFile.transferTo(newImageFile);
 
-        //System.out.println(beenConfig.getMusicImagePath());
-        //System.out.println(beenConfig.getMusicMp3FilePath());
-
         final String mp3Name = mp3File.getOriginalFilename().replaceAll(" ", "");
         File newMp3File = new File(beenConfig.getMusicMp3FilePath() + mp3Name);
+
         mp3File.transferTo(newMp3File);
     }
 
-    public boolean findMusic() {
-        
+    public boolean findMusicTitle(final String title) {
+        boolean result = false;
+
+        if (musicRepository.findByMusicTitle(title) != null){
+            result = true;
+        }
+
+
+        return result;
     }
 
 }
