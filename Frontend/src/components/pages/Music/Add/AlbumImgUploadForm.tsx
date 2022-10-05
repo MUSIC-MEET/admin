@@ -16,10 +16,13 @@ function AlbumImgUploadForm(props: AlbumImgUploadFormProps & BaseProps) {
     }, []); return (
         <div css={style} className={`${props.className}`}>
             <figure>
-                <img
-                    src={props.previeImg}
-                    alt=""
-                />
+                {
+                    props.previeImg.length !== 0 &&
+                    <img
+                        src={props.previeImg}
+                        alt=""
+                    />
+                }
             </figure>
             <input
                 ref={fileRef}
@@ -42,7 +45,7 @@ const style = css`
     align-items: center;
     justify-content: center;
     width: 100%;
-    & > figure > img {
+    & > figure, & > figure > img {
         width: 20rem;
         min-height: 15rem;
         border: 1px solid black;
