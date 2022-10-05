@@ -27,7 +27,7 @@ function AlbumInfo(props: BaseProps & AlbumInfoProps) {
                 <LabelInput
                     labelText="가수명"
                     placeholder="가수명을 입력해주세요."
-                    value={props.text.origin_signer}
+                    value={props.text.origin_singer}
                     name={"origin_signer"}
                     onChange={props.onChange}
                 />
