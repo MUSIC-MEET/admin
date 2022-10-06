@@ -41,11 +41,12 @@ function App() {
 const style = css`
     width: 100vw;
     height: 100%;
-
+    min-height: 100vh;
     display: flex;
     flex-direction: row;
     .menu {
         min-width: 16rem;
+        /* height: 100%; */
     
     }
 
