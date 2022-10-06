@@ -35,23 +35,17 @@ public class MusicManageController {
 
     /**
      *  음원 등록.md
-     * @param
-     * @return
+     * @param   멀티파트 타입의 이미지와 mp3 파일과 json으로 파싱해야되는 String 타입의 변수
+     * @return  DB에 이미 있거나 예외처리 발생시 400, 정상 처리시 201 리턴
      */
     @RequestMapping(value = "/musics", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Object> createMusic(@RequestPart(value = "textInfo") final String requestMusic,
                                               @RequestPart(value = "imgFile") final MultipartFile imageFile,
                                               @RequestPart(value = "mp3File") final MultipartFile mp3File) {
 
-        // 길이 값 삽입
-        // 디비에 있나 확인
-        // 파일 생성
-        // 디비에 삽입
         Gson gson = new Gson();
 
         Music music = gson.fromJson(requestMusic, Music.class);
-
-        boolean result = true;
 
         music.setTitle(music.getOrigin_title().replaceAll(" ",""));
         music.setSinger(music.getOrigin_singer().replaceAll(" ",""));
@@ -59,37 +53,21 @@ public class MusicManageController {
         music.setFileName(mp3File.getOriginalFilename().replaceAll(" ", ""));
 
         if (!musicService.findMusicTitle(music.getTitle())){
-            try{
-
+            try {
                 musicService.createMusicFile(imageFile, mp3File);
-
                 AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(new File(beenConfig.getMusicMp3FilePath() + music.getFileName()));
-
                 if (fileFormat instanceof TAudioFileFormat) {
                     Map<?, ?> properties = ((TAudioFileFormat) fileFormat).properties();
                     String key = "duration";
-                    System.out.println();
-
                     music.setLength( (int) ((Long)properties.get(key) / 1000000L));
-                    System.out.println(music);
                 } else {
                     throw new UnsupportedAudioFileException();
                 }
-
-
-
-
                 musicService.insertMusicDB(music);
             }catch (Exception e){
                 e.printStackTrace();
-                result = false;
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
-
-        }
-
-
-
-        if (result) {
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         else {
