@@ -7,51 +7,63 @@ import AlbumImgUploadForm from "./AlbumImgUploadForm";
 import AlbumInfo from "./AlbumInfo";
 import MusicAddRequestType from "./MusicAddRequestType";
 
+interface MusicAddForProps {
+    onSend: (request: MusicAddRequestType) => void;
+    albumMp3File: Blob;
+    albumImgFile: Blob;
+    imgPreview: string;
+    textInfo: MusicTextInfoType;
+    setTextInfo: (textInfo: MusicTextInfoType) => void;
+    setAlbumImgFile: (albumImgFile: any) => void;
+    setAlbumMp3File: (albumMp3File: Blob) => void;
+    setImgPreview: (imgPreview: any) => void;
+}
 
+function MusicAddForm(props: MusicAddForProps) {
+    const
+        {
+            onSend,
+            albumMp3File,
+            albumImgFile,
+            imgPreview,
+            textInfo,
+            setTextInfo,
+            setAlbumImgFile,
+            setAlbumMp3File,
+            setImgPreview
+        }
+            = props;
 
-function MusicAddForm(props: { onSend: ({ ...MusicAddRequestType }: MusicAddRequestType) => void }) {
-    const [albumMp3File, setAlbumMp3File] = useState<Blob>(new Blob());
-    const [albumImgFile, setAlbumImgFile] = useState<Blob>(new Blob());
-    const [imgPreview, setImgPreview] = useState<string>("");
-    const [textInfo, setTextInfo] = useState<
-        MusicTextInfoType
-    >({
-        origin_title: "",
-        origin_singer: "",
-        releaseDate: "",
-        lyrics: "",
-        genre: "",
-    });
 
     const textChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setTextInfo({
             ...textInfo,
             [e.target.name]: e.target.value,
         });
-    }, [textInfo]);
+    }, [setTextInfo, textInfo]);
 
     const lyricsChangeHandler = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTextInfo({
             ...textInfo,
             lyrics: e.target.value,
         });
-    }, [textInfo]);
+    }, [setTextInfo, textInfo]);
 
     const mp3ChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setAlbumMp3File(e.target.files![0]);
-    }, []);
+    }, [setAlbumMp3File]);
 
     const genreChangeHandler = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         setTextInfo({
             ...textInfo,
             genre: e.target.value,
         });
-    }, [textInfo]);
+    }, [setTextInfo, textInfo]);
 
     const imgFileChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setAlbumImgFile(() => e.target.files![0]);
         setImgPreview(() => URL.createObjectURL(e.target.files![0]));
-    }, []);
+    }, [setAlbumImgFile, setImgPreview]);
 
     const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
