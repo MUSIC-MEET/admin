@@ -39,7 +39,7 @@ public class BeenConfig
     @Value("server.port")
     private String serverPort;
 
-    private String musicImagePath = System.getProperty("user.dir") + File.separator + "musicImageFiles" + File.separator;
-    private String musicMp3FilePath = System.getProperty("user.dir") + File.separator + "musicMp3Files" + File.separator;
+    private String musicImagePath = System.getProperty("user.dir") + File.separator + "music_image" + File.separator;
 
+    private String musicMp3FilePath = System.getProperty("user.dir") + File.separator + "music_mp3" + File.separator;
 }
